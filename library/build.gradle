@@ -35,3 +35,16 @@ dependencies {
         transitive = true
     }
 }
+
+apply plugin: 'maven'
+uploadArchives {
+    repositories.mavenDeployer {
+        def deployPath = file(getProperty('aar.deployPath'))
+        repository(url: "file://${deployPath.absolutePath}")
+        pom.project {
+            groupId 'bitninja.de'
+            artifactId 'material-design-drawer'
+            version "0.1.0"
+        }
+    }
+}
