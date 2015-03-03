@@ -1,6 +1,9 @@
 package com.mikepenz.materialdrawer.adapter;
 
 import android.app.Activity;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,6 +103,19 @@ public class DrawerAdapter extends BaseDrawerAdapter {
         return 0;
     }
 
+    private Drawable getRotateDrawable(final Drawable d, final float angle) {
+        final Drawable[] arD = { d };
+        return new LayerDrawable(arD) {
+            @Override
+            public void draw(final Canvas canvas) {
+                canvas.save();
+                canvas.rotate(angle, d.getBounds().width() / 2, d.getBounds().height() / 2);
+                super.draw(canvas);
+                canvas.restore();
+            }
+        };
+    }
+
     @Override
     public boolean hasStableIds() {
         return false;
@@ -121,6 +137,32 @@ public class DrawerAdapter extends BaseDrawerAdapter {
     public void setTypeMapper(List<String> typeMapper) {
         this.mTypeMapper = typeMapper;
     }
+    @Override
+    public void onGroupCollapsed(int groupPosition) {
+        super.onGroupCollapsed(groupPosition);
+        IDrawerItem item = (IDrawerItem) getGroup(groupPosition);
+        if(item instanceof ExpListDrawerItem) {
+            ExpListDrawerItem expItem = (ExpListDrawerItem) item;
+            if(expItem.getIcon() != null) {
+                Drawable rotated = getRotateDrawable(expItem.getIcon(), 180.0f);
+                expItem.setIcon(rotated);
+            }
+        }
+    }
+    @Override
+    public void onGroupExpanded(int groupPosition) {
+        super.onGroupExpanded(groupPosition);
+        IDrawerItem item = (IDrawerItem) getGroup(groupPosition);
+        if(item instanceof ExpListDrawerItem) {
+            ExpListDrawerItem expItem = (ExpListDrawerItem) item;
+            if(expItem.getIcon() != null) {
+                Drawable rotated = getRotateDrawable(expItem.getIcon(), 180.0f);
+                expItem.setIcon(rotated);
+            }
+        }
+
+    }
+
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         IDrawerItem item = (IDrawerItem) getGroup(groupPosition);

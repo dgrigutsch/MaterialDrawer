@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -123,6 +125,14 @@ public class Drawer {
         }
         return this;
     }
+
+    protected int mDrawerTopMargin = -1;
+
+    public Drawer withDrawerTopMargin(int value){
+        this.mDrawerTopMargin = value;
+        return this;
+    }
+
     //the background color for the slider
     protected int mSliderBackgroundColor = -1;
     protected int mSliderBackgroundColorRes = -1;
@@ -220,6 +230,7 @@ public class Drawer {
     protected int mHeaderOffset = 0;
     protected boolean mHeaderDivider = true;
     protected boolean mHeaderClickable = false;
+
     /**
      * add a header layout from view
      *
@@ -300,6 +311,13 @@ public class Drawer {
         }
         return this;
     }
+
+    protected Drawable mDividerDrawable = null;
+    public Drawer withListDivider(Drawable drawable){
+        this.mDividerDrawable = drawable;
+        return this;
+    }
+
     /**
      * set if the footer is clickable
      *
@@ -535,6 +553,13 @@ public class Drawer {
         this.mSavedInstance = savedInstance;
         return this;
     }
+
+    private Drawable groupIndicator = null;
+
+    public void setGroupIndicator(Drawable drawable){
+        groupIndicator = drawable;
+    }
+
     /**
      * Build everything and get a Result
      *
@@ -645,7 +670,6 @@ public class Drawer {
                 }
             };
         }
-
 // add the slider to the drawer
         mDrawerLayout.addView(mSliderLayout, 1);
 //create the content
@@ -697,13 +721,14 @@ public class Drawer {
         if (mListView == null) {
             mListView = new ExpandableListView(mActivity);
             mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-            mListView.setDivider(null);
+            mListView.setDivider(mDividerDrawable);
             mListView.setDrawSelectorOnTop(true);
             mListView.setClipToPadding(false);
             if (mTranslucentStatusBar) {
                 mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
             }
         }
+        mListView.setGroupIndicator(groupIndicator);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -956,9 +981,21 @@ public class Drawer {
             }
         }
         if (mTranslucentActionBarCompatibility) {
+
+            int[] textSizeAttr = new int[] { android.R.attr.actionBarSize, R.attr.actionBarSize };
+            TypedArray a = mActivity.obtainStyledAttributes(new TypedValue().data, textSizeAttr);
+            float heightHolo = a.getDimension(0, -1);
+            float heightMaterial = a.getDimension(1, -1);
+            if(heightHolo != -1)
+                params.topMargin = (int)heightHolo;
+            if(heightMaterial != -1)
+                params.topMargin = (int)heightMaterial;
+
             TypedValue tv = new TypedValue();
             if (mActivity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
                 params.topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
+            }else if(mDrawerTopMargin > -1){
+               params.topMargin = mDrawerTopMargin;
             }
         }
         if (mDrawerWidth > -1) {

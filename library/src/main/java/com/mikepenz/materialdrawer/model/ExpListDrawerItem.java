@@ -326,7 +326,6 @@ public class ExpListDrawerItem implements IDrawerItem, Nameable<ExpListDrawerIte
             viewHolder.name.setTextColor(color);
             viewHolder.badge.setTextColor(color);
         }
-        Drawable icon = null;
         Drawable selectedIcon = null;
         if (this.getIcon() != null) {
             icon = this.getIcon();
