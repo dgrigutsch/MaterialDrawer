@@ -819,9 +819,8 @@ public class Drawer {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition, long id) {
                 IDrawerItem i = getDrawerItem(groupPosition, false);
-                if(i instanceof ExpListDrawerItem){
-
-                }else {
+                if(i instanceof ExpListDrawerItem){}
+                else {
                     if (mCloseOnClick) {
                         if (mDelayOnDrawerClose > -1) {
                             new Handler().postDelayed(new Runnable() {
@@ -843,6 +842,8 @@ public class Drawer {
                 }
                 if (mOnGroupClickListener != null) {
                     mOnGroupClickListener.onGroupClick(parent, view, groupPosition, id, i);
+                } else if(mOnDrawerItemClickListener != null){
+                    mOnDrawerItemClickListener.onItemClick(parent,view,groupPosition,id,i);
                 }
                 return false;
             }
@@ -875,9 +876,11 @@ public class Drawer {
                 if(i instanceof ExpListDrawerItem)
                     return true;
 
-                if(mOnChildClickListener != null)
-                    mOnChildClickListener.onChildClick(parent,view,groupPosition,childPosition,id,i);
-
+                if(mOnChildClickListener != null) {
+                    mOnChildClickListener.onChildClick(parent, view, groupPosition, childPosition, id, i);
+                }else if(mOnDrawerItemClickListener != null){
+                    mOnDrawerItemClickListener.onItemClick(parent,view,groupPosition*100+childPosition,id,i);
+                }
                 return false;
             }
         });
