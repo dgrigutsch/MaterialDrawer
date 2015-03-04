@@ -659,14 +659,14 @@ public class Drawer {
             mOnGroupClickListener = new OnDrawerGroupClickListener() {
                 @Override
                 public void onGroupClick(AdapterView<?> parent, View view, int groupPosition, long id, IDrawerItem drawerItem) {
-                    if(mOnGroupClickListener == null) {
-//                        mOnDrawerItemClickListener.onItemClick(parent, view, groupPosition, id, drawerItem);
-                        if(mListView.isGroupExpanded(groupPosition)){
-                            mListView.collapseGroup(groupPosition);
-                        }else {
-                            mListView.expandGroup(groupPosition);
-                        }
+                    if(mOnDrawerItemClickListener != null)
+                        mOnDrawerItemClickListener.onItemClick(parent, view, groupPosition, id, drawerItem);
+                    if(mListView.isGroupExpanded(groupPosition)){
+                        mListView.collapseGroup(groupPosition);
+                    }else {
+                        mListView.expandGroup(groupPosition);
                     }
+
                 }
             };
         }
@@ -833,17 +833,15 @@ public class Drawer {
                             mDrawerLayout.closeDrawers();
                         }
                     }
-                }
-                if (i != null && i instanceof Checkable && !((Checkable) i).isCheckable()) {
-                    mListView.setSelection(mCurrentSelection);
-                    mListView.setItemChecked(mCurrentSelection, true);
-                } else {
-                    mCurrentSelection = groupPosition;
-                }
-                if (mOnGroupClickListener != null) {
-                    mOnGroupClickListener.onGroupClick(parent, view, groupPosition, id, i);
-                } else if(mOnDrawerItemClickListener != null){
-                    mOnDrawerItemClickListener.onItemClick(parent,view,groupPosition,id,i);
+                    if (i != null && i instanceof Checkable && !((Checkable) i).isCheckable()) {
+                        mListView.setSelection(mCurrentSelection);
+                        mListView.setItemChecked(mCurrentSelection, true);
+                    } else {
+                        mCurrentSelection = groupPosition;
+                    }
+                    if (mOnGroupClickListener != null) {
+                        mOnGroupClickListener.onGroupClick(parent, view, groupPosition, id, i);
+                    }
                 }
                 return false;
             }
