@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
 //                .withHeader(R.layout.header)
 //                .withTranslucentStatusBar(true)
 //                .withDrawerLayout(R.id.drawer_layout)
+                .withHeaderClickable(true)
                 .withTranslucentActionBarCompatibility(true)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
@@ -71,8 +73,8 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         if (drawerItem != null) {
                             if (drawerItem instanceof Nameable) {
                                 Toast.makeText(SimpleDrawerActivity.this, SimpleDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                                Log.e("+++",SimpleDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()));
                             }
-
                             if (drawerItem.getIdentifier() == 1) {
                                 Intent intent = new Intent(SimpleDrawerActivity.this, ActionBarDrawerActivity.class);
                                 SimpleDrawerActivity.this.startActivity(intent);

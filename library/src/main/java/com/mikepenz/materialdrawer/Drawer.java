@@ -659,8 +659,8 @@ public class Drawer {
             mOnGroupClickListener = new OnDrawerGroupClickListener() {
                 @Override
                 public void onGroupClick(AdapterView<?> parent, View view, int groupPosition, long id, IDrawerItem drawerItem) {
-                    if(mOnDrawerItemClickListener != null)
-                        mOnDrawerItemClickListener.onItemClick(parent, view, groupPosition, id, drawerItem);
+//                    if(mOnDrawerItemClickListener != null)
+//                        mOnDrawerItemClickListener.onItemClick(parent, view, groupPosition, id, drawerItem);
                     if(mListView.isGroupExpanded(groupPosition)){
                         mListView.collapseGroup(groupPosition);
                     }else {
@@ -758,6 +758,7 @@ public class Drawer {
             } else {
                 mListView.addHeaderView(mHeaderView, null, mHeaderClickable);
                 mListView.setPadding(0, 0, 0, 0);
+
             }
         }
 // set the footer (do this before the setAdapter because some devices will crash else
