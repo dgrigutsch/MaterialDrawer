@@ -722,11 +722,12 @@ public class Drawer {
             mListView = new ExpandableListView(mActivity);
             mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             mListView.setDivider(mDividerDrawable);
+            mListView.setChildDivider(mDividerDrawable);
             mListView.setDrawSelectorOnTop(true);
             mListView.setClipToPadding(false);
-            if (mTranslucentStatusBar) {
-                mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
-            }
+        }
+        if (mTranslucentStatusBar) {
+            mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
         }
         mListView.setGroupIndicator(groupIndicator);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

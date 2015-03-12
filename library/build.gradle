@@ -49,7 +49,7 @@ uploadArchives {
         pom.project {
             groupId 'com.mikepenz.materialdrawer'
             artifactId 'lib'
-            version "1.0.7"
+            version "1.0.8"
         }
     }
 }
