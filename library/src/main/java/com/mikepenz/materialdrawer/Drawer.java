@@ -659,8 +659,8 @@ public class Drawer {
             mOnGroupClickListener = new OnDrawerGroupClickListener() {
                 @Override
                 public void onGroupClick(AdapterView<?> parent, View view, int groupPosition, long id, IDrawerItem drawerItem) {
-//                    if(mOnDrawerItemClickListener != null)
-//                        mOnDrawerItemClickListener.onItemClick(parent, view, groupPosition, id, drawerItem);
+                    if(mOnDrawerItemClickListener != null)
+                        mOnDrawerItemClickListener.onItemClick(parent, view, groupPosition, id, drawerItem);
                     if(mListView.isGroupExpanded(groupPosition)){
                         mListView.collapseGroup(groupPosition);
                     }else {

@@ -8,7 +8,7 @@ android {
         minSdkVersion 10
         targetSdkVersion 21
         versionCode 103
-        versionName '1.0.3-SNAPSHOT'
+        versionName '1.0.9'
     }
 
     buildTypes {
@@ -49,7 +49,7 @@ uploadArchives {
         pom.project {
             groupId 'com.mikepenz.materialdrawer'
             artifactId 'lib'
-            version "1.0.8"
+            version "1.0.9"
         }
     }
 }
