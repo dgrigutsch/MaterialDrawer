@@ -10,6 +10,7 @@
     <dimen name="material_drawer_padding">8dp</dimen>
     <!-- General vertical padding values -->
     <dimen name="material_drawer_vertical_padding">16dp</dimen>
+    <dimen name="material_drawer_vertical_padding_expanded">36dp</dimen>
 
     <!-- General icon margins for the drawer item -->
     <dimen name="material_drawer_item_padding">8dp</dimen>

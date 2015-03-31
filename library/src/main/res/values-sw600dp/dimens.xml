@@ -4,4 +4,5 @@
     <!-- ********************** -->
     <!-- General vertical padding values -->
     <dimen name="material_drawer_vertical_padding">24dp</dimen>
+    <dimen name="material_drawer_vertical_padding_expanded">44dp</dimen>
 </resources>

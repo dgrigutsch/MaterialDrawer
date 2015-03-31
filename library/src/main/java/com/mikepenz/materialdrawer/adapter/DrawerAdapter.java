@@ -166,7 +166,9 @@ public class DrawerAdapter extends BaseDrawerAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         IDrawerItem item = (IDrawerItem) getGroup(groupPosition);
-        return item.convertView(mInflater, convertView, parent);
+        View view =  item.convertView(mInflater, convertView, parent);
+
+        return view;
     }
 
     @Override

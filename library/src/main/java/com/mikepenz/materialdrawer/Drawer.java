@@ -725,6 +725,7 @@ public class Drawer {
             mListView.setChildDivider(mDividerDrawable);
             mListView.setDrawSelectorOnTop(true);
             mListView.setClipToPadding(false);
+
         }
         if (mTranslucentStatusBar) {
             mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
